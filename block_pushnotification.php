@@ -31,14 +31,16 @@ class block_pushnotification extends block_base {
     }
 
     function get_content() {
-        global $DB, $CFG, $OUTPUT;
+        global $DB, $CFG, $OUTPUT, $COURSE;
 
         if ($this->content !== null) {
             return $this->content;
         }
 
-		$course = $DB->get_record('course', array('idnumber'=>'UPR1'));
-        if (empty($this->instance) || empty($course)) {
+		$course = $DB->get_record('course', array('idnumber'=> $this->page->course->idnumber));
+        $context = context_course::instance($COURSE->id);
+
+        if (empty($this->instance) || empty($course) || !has_capability('block/pushnotification:sendnotification', $context)) {
             $this->content = '';
             return $this->content;
         }
@@ -59,22 +61,16 @@ class block_pushnotification extends block_base {
         $this->content->text .= '</fieldset></form></div>';
 
         return $this->content;
-        return $this->content;
     }
 
     // my moodle can only have SITEID and it's redundant here, so take it away
     public function applicable_formats() {
         return array('all' => false,
-                     'site' => true,
-                     'site-index' => true,
-                     'course-view' => true,
-                     'course-view-social' => false,
-                     'mod' => true,
-                     'mod-quiz' => false);
+                     'course-view' => true);
     }
 
     public function instance_allow_multiple() {
-          return true;
+          return false;
     }
 
     function has_config() {

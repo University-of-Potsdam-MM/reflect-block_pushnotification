@@ -16,11 +16,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Manage files in folder in private area - to be replaced by something better hopefully....
+ * Sends notification to push service
  *
- * @package   block_private_files
- * @copyright 2010 Petr Skoda (http://skodak.org)
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    block_pushnotification
+ * @copyright  2016 Alexander Kiy <alekiy@uni-potsdam.de>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 require('../../config.php');
@@ -34,26 +34,32 @@ if (isguestuser()) {
     die();
 }
 
-$courseurl = new moodle_url('/course/view.php', array('id' => $courseid));
+global $COURSE;
 
-$endpoint = 'http://api.uni-potsdam.de/endpoints/pushAPI/';
-$operation = 'push';
-$service = 'reflectup';
+$context = context_course::instance($COURSE->id);
 
-$url = $endpoint.$operation.'?service='.$service.'&message='.urlencode($message).'&title='.urlencode($title).'&subscriber=*';
-var_dump($url);
-$headers = array(
-				"Authorization:"."Bearer c06156e119040a27a4b43fa933f130"
-				);
+if (has_capability('block/pushnotification:sendnotification', $context)){
 
-// new HTTP-Request
-$curl = curl_init();
-curl_setopt_array($curl, array(
-								CURLOPT_RETURNTRANSFER => 1,
-								CURLOPT_HTTPHEADER => $headers,
-								CURLOPT_URL => $url
-								));
-$result = curl_exec($curl);
-curl_close($curl);
+	$endpoint = get_config('block_pushnotification', 'URL');
 
-redirect($courseurl);
+	$operation = 'push';
+	$service = 'reflectup';
+
+	$url = $endpoint.$operation.'?service='.$service.'&message='.urlencode($message).'&title='.urlencode($title).'&subscriber=*';
+
+	$headers = explode("\n", str_replace("\r", "",get_config('block_pushnotification', 'headers')));
+
+	// new HTTP-Request
+	$curl = curl_init();
+	curl_setopt_array($curl, array(
+									CURLOPT_RETURNTRANSFER => 1,
+									CURLOPT_HTTPHEADER => $headers,
+									CURLOPT_URL => $url
+									));
+	$result = curl_exec($curl);
+	curl_close($curl);
+
+	$courseurl = new moodle_url('/course/view.php', array('id' => $courseid));
+	redirect($courseurl);
+
+}

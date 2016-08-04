@@ -15,10 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Newblock block caps.
+ * Plugin settings
  *
  * @package    block_pushnotification
- * @copyright  Daniel Neis <danielneis@gmail.com>
+ * @copyright  2016 Alexander Kiy <alekiy@uni-potsdam.de>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -28,7 +28,10 @@ $settings->add(new admin_setting_heading('sampleheader',
                                          get_string('headerconfig', 'block_pushnotification'),
                                          get_string('descconfig', 'block_pushnotification')));
 
-$settings->add(new admin_setting_configcheckbox('newblock/foo',
-                                                get_string('labelfoo', 'block_pushnotification'),
-                                                get_string('descfoo', 'block_pushnotification'),
-                                                '0'));
+$settings->add(new admin_setting_configtext('block_pushnotification/URL',
+                        get_string('block_pushnotification_url_key', 'block_pushnotification'),
+                        get_string('block_pushnotification_url', 'block_pushnotification'), '', PARAM_URL));
+
+$settings->add(new admin_setting_configtextarea('block_pushnotification/headers',
+						get_string('block_pushnotification_headers_key', 'block_pushnotification'),
+						get_string('block_pushnotification_headers', 'block_pushnotification'), ''));

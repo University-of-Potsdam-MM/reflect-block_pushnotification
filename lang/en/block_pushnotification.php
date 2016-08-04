@@ -23,15 +23,16 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['blockstring'] = 'Block string';
-$string['descconfig'] = 'Description of the config section';
-$string['descfoo'] = 'Config description';
-$string['headerconfig'] = 'Config section header';
-$string['labelfoo'] = 'Config label';
-$string['newblock:addinstance'] = 'Add a newblock block';
-$string['newblock:myaddinstance'] = 'Add a newblock block to my moodle';
-$string['pluginname'] = 'Reflect.UP-Block';
-$string['title'] = 'Notification title';
-$string['content'] = 'Content';
-$string['text'] = 'Content of Push Notification';
+$string['descconfig'] = 'Please fill in your endpoint to the Pushnotification Service and the necessary headers.';
+$string['headerconfig'] = 'Settings for Pushnotification Service';
 
+$string['block_pushnotification_url_key'] = 'URL Endpoint';
+$string['block_pushnotification_url'] = 'URL Endpoint of the Uniqush Push-Service. Has to end with an /';
+$string['block_pushnotification_headers_key'] = 'Request Headers';
+$string['block_pushnotification_headers'] = 'Request Headers for Push-Service';
+
+$string['newblock:addinstance'] = 'Add a Pushnotification block';
+$string['newblock:myaddinstance'] = 'Add a Pushnotification block to my moodle';
+$string['pluginname'] = 'Reflect Pushnotification';
+$string['title'] = 'Notification title';
+$string['text'] = 'Content of Push Notification';
