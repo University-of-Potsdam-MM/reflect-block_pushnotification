@@ -45,7 +45,7 @@ if (has_capability('block/pushnotification:sendnotification', $context)){
 	$operation = 'push';
 	$service = 'reflectup';
 
-	$url = $endpoint.$operation.'?service='.$service.'&message='.urlencode($message).'&title='.urlencode($title).'&subscriber=*';
+	$url = $endpoint.$operation.'?service='.$service.'&message='.urlencode($message).'&msg='.urlencode($message).'&title='.urlencode($title).'&subscriber=*';
 
 	$headers = explode("\n", str_replace("\r", "",get_config('block_pushnotification', 'headers')));
 
