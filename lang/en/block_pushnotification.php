@@ -31,6 +31,9 @@ $string['block_pushnotification_url'] = 'URL Endpoint of the Uniqush Push-Servic
 $string['block_pushnotification_headers_key'] = 'Request Headers';
 $string['block_pushnotification_headers'] = 'Request Headers for Push-Service';
 
+$string['pushnotification:sendnotification'] = 'Send a notification to all registered mobile devices';
+$string['pushnotification:addinstance'] = 'Add a new Pushnotification block';
+
 $string['newblock:addinstance'] = 'Add a Pushnotification block';
 $string['newblock:myaddinstance'] = 'Add a Pushnotification block to my moodle';
 $string['pluginname'] = 'Reflect Pushnotification';
