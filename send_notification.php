@@ -89,7 +89,7 @@ if (has_capability('block/pushnotification:sendnotification', $context)){
 									CURLOPT_HTTPHEADER => $headers,
 									CURLOPT_URL => $url
 									));
-	//$result = curl_exec($curl);
+	$result = curl_exec($curl);
 	curl_close($curl);
 
 	$courseurl = new moodle_url('/course/view.php', array('id' => $courseid));
