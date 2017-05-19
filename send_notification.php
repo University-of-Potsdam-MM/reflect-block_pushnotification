@@ -48,7 +48,7 @@ if (has_capability('block/pushnotification:sendnotification', $context)){
 
 	$operation = 'push';
 	$service = 'reflectup-';
-    $course = $DB->get_record('course', array('id' => $courseid));
+  $course = $DB->get_record('course', array('id' => $courseid));
 
 	$service .= $course->idnumber;
 
@@ -78,7 +78,10 @@ if (has_capability('block/pushnotification:sendnotification', $context)){
 
 
 	$url = $endpoint.$operation.'?service='.$service.'&message='.urlencode($json_object_str).'&subscriber=*';
+	$short_message= $course->fullname;
 
+	$url = $endpoint.$operation.'?service='.$service.'&message='.urlencode($json_object_str).'&msg='.urlencode($short_message).'&subscriber=*';
+	
 	$headers = explode("\n", str_replace("\r", "",get_config('block_pushnotification', 'headers')));
 
 	// new HTTP-Request
