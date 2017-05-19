@@ -31,13 +31,14 @@ class block_pushnotification extends block_base {
     }
 
     function get_content() {
-        global $DB, $CFG, $OUTPUT, $COURSE;
+        global $DB, $CFG, $OUTPUT, $COURSE, $PAGE;
 
         if ($this->content !== null) {
             return $this->content;
         }
 
 		$course = $DB->get_record('course', array('idnumber'=> $this->page->course->idnumber));
+
         $context = context_course::instance($COURSE->id);
 
         if (empty($this->instance) || empty($course) || !has_capability('block/pushnotification:sendnotification', $context)) {
@@ -50,18 +51,42 @@ class block_pushnotification extends block_base {
         $this->content->icons = array();
         $this->content->footer = '';
 
+
         $this->content->text  = '<div class="searchform" style="text-align:center;">';
         $this->content->text .= '<form action="'.$CFG->wwwroot.'/blocks/pushnotification/send_notification.php" style="display:inline"><fieldset class="invisiblefieldset">';
+
         $this->content->text .= '<input name="id" type="hidden" value="'.$this->page->course->id.'" />';  // course
-		$this->content->text .= '<label class="accesshide" for="pushform_title">'.get_string('title', 'block_pushnotification').'</label>'.
-                                '<input id="pushform_title" name="title" type="text" size="20" placeholder="'.get_string('title', 'block_pushnotification').'" />';
-        $this->content->text .= '<label class="accesshide" for="pushform_msg">'.get_string('content', 'block_pushnotification').'</label>'.
-                                '<textarea id="pushform_msg" name="msg" rows="4" cols="22" placeholder="'.get_string('text', 'block_pushnotification').'"></textarea>';
+        //form body
+            //english
+        $this->content->text .= '<h5>English</h5>';
+		$this->content->text .= '<label class="accesshide" for="pushform_title">'.get_string('title_en', 'block_pushnotification').'</label>'.
+                                '<input id="pushform_title" name="title_en" type="text" size="20" placeholder="'.get_string('title_en', 'block_pushnotification').'" />';
+        $this->content->text .= '<textarea id="pushform_msg_en" name="msg_en" rows="4" cols="22" placeholder="'.get_string('text_en', 'block_pushnotification').
+                                '"></textarea>';
+        $this->content->text .= '</ br>';
+            //german
+        $this->content->text .= '<h5>Deutsch</h5>';
+        $this->content->text .= '<label class="accesshide" for="pushform_title">'.get_string('title_de', 'block_pushnotification').'</label>'.
+                                '<input id="pushform_title" name="title_de" type="text" size="20" placeholder="'.get_string('title_de', 'block_pushnotification').'" />';
+        $this->content->text .= '<textarea id="pushform_msg_de" name="msg_de" rows="4" cols="22" placeholder="'.get_string('text_de', 'block_pushnotification').
+                                '"></textarea>';
+        $this->content->text .= '</ br>';
+            //spanish
+        $this->content->text .= '<h5>Español</h5>';
+        $this->content->text .= '<label class="accesshide" for="pushform_title">'.get_string('title_es', 'block_pushnotification').'</label>'.
+                                '<input id="pushform_title" name="title_es" type="text" size="20" placeholder="'.get_string('title_es', 'block_pushnotification').'" />';
+        $this->content->text .= '<textarea id="pushform_msg_es" name="msg_es" rows="4" cols="22" placeholder="'.get_string('text_es', 'block_pushnotification').
+                                '"></textarea>';
+        $this->content->text .= '</ br>';
+            //submit button
+        $this->content->text .= '</ br>';
         $this->content->text .= '<button id="searchform_button" type="submit">'.get_string('submit').'</button><br />';
         $this->content->text .= '</fieldset></form></div>';
 
+
         return $this->content;
     }
+
 
     // my moodle can only have SITEID and it's redundant here, so take it away
     public function applicable_formats() {
