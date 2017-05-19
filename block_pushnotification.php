@@ -18,7 +18,7 @@
  * Pushnotification Block
  *
  * @package    block_pushnotification
- * @copyright  Alexander Kiy
+ * @copyright  2017 Alexander Kiy
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 

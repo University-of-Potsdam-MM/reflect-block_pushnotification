@@ -19,7 +19,7 @@
  * Sends notification to push service
  *
  * @package    block_pushnotification
- * @copyright  2016 Alexander Kiy <alekiy@uni-potsdam.de>
+ * @copyright  2017 Alexander Kiy <alekiy@uni-potsdam.de>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -81,7 +81,7 @@ if (has_capability('block/pushnotification:sendnotification', $context)){
 	$short_message= $course->fullname;
 
 	$url = $endpoint.$operation.'?service='.$service.'&message='.urlencode($json_object_str).'&msg='.urlencode($short_message).'&subscriber=*';
-	
+
 	$headers = explode("\n", str_replace("\r", "",get_config('block_pushnotification', 'headers')));
 
 	// new HTTP-Request

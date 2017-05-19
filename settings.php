@@ -18,7 +18,7 @@
  * Plugin settings
  *
  * @package    block_pushnotification
- * @copyright  2016 Alexander Kiy <alekiy@uni-potsdam.de>
+ * @copyright  2017 Alexander Kiy <alekiy@uni-potsdam.de>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 

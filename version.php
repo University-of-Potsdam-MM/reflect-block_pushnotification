@@ -18,14 +18,14 @@
  * Defines the metadata for the Reflect Pushnotification block
  *
  * @package    block_pushnotification
- * @copyright  2016 Alexander Kiy <alekiy@uni-potsdam.de>
+ * @copyright  2017 Alexander Kiy <alekiy@uni-potsdam.de>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2016101909;        // The current plugin version (Date: YYYYMMDDXX)
+$plugin->version   = 2017051911;        // The current plugin version (Date: YYYYMMDDXX)
 $plugin->requires  = 2012112900;        // Requires this Moodle version
 $plugin->component = 'block_pushnotification'; // Full name of the plugin (used for diagnostics)
 $plugin->maturity = MATURITY_STABLE;
-$plugin->release = '1.4';
+$plugin->release = '2.0';
