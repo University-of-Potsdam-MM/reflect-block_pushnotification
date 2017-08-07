@@ -57,20 +57,20 @@ class block_pushnotification extends block_base {
 
         $this->content->text .= '<input name="id" type="hidden" value="'.$this->page->course->id.'" />';  // course
         //form body
+            //german	   
+        $this->content->text .= '<h5>Deutsch (Standard)</h5>';
+        $this->content->text .= '<label class="accesshide" for="pushform_title">'.get_string('title_de', 'block_pushnotification').'</label>'.
+                                '<input id="pushform_title" name="title_de" type="text" size="20" placeholder="'.get_string('title_de', 'block_pushnotification').'" />';
+        $this->content->text .= '<textarea id="pushform_msg_de" name="msg_de" rows="4" cols="22" placeholder="'.get_string('text_de', 'block_pushnotification').
+                                '"></textarea>';
+        $this->content->text .= '<br />';	 
             //english
         $this->content->text .= '<h5>English</h5>';
 		$this->content->text .= '<label class="accesshide" for="pushform_title">'.get_string('title_en', 'block_pushnotification').'</label>'.
                                 '<input id="pushform_title" name="title_en" type="text" size="20" placeholder="'.get_string('title_en', 'block_pushnotification').'" />';
         $this->content->text .= '<textarea id="pushform_msg_en" name="msg_en" rows="4" cols="22" placeholder="'.get_string('text_en', 'block_pushnotification').
                                 '"></textarea>';
-        $this->content->text .= '</ br>';
-            //german
-        $this->content->text .= '<h5>Deutsch</h5>';
-        $this->content->text .= '<label class="accesshide" for="pushform_title">'.get_string('title_de', 'block_pushnotification').'</label>'.
-                                '<input id="pushform_title" name="title_de" type="text" size="20" placeholder="'.get_string('title_de', 'block_pushnotification').'" />';
-        $this->content->text .= '<textarea id="pushform_msg_de" name="msg_de" rows="4" cols="22" placeholder="'.get_string('text_de', 'block_pushnotification').
-                                '"></textarea>';
-        $this->content->text .= '</ br>';
+        $this->content->text .= '<br />';
             //spanish
         $this->content->text .= '<h5>Español</h5>';
         $this->content->text .= '<label class="accesshide" for="pushform_title">'.get_string('title_es', 'block_pushnotification').'</label>'.
