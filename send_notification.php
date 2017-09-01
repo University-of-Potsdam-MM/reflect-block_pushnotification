@@ -52,35 +52,26 @@ if (has_capability('block/pushnotification:sendnotification', $context)){
 
 	$service .= $course->idnumber;
 
-	//give the correct formating to user's input
-	$json_object_str= '{';
-	$json_object_str .= '"en":{';
-	$json_object_str .= '"title":"';
-	$json_object_str .= $title_en;
-	$json_object_str .= '",';
-	$json_object_str .= '"message":"';
-	$json_object_str .= $message_en;
-	$json_object_str .= '"},';
-	$json_object_str .= '"de":{';
-	$json_object_str .= '"title":"';
-	$json_object_str .= $title_de;
-	$json_object_str .= '",';
-	$json_object_str .= '"message":"';
-	$json_object_str .= $message_de;
-	$json_object_str .= '"},';
-	$json_object_str .= '"es":{';
-	$json_object_str .= '"title":"';
-	$json_object_str .= $title_es;
-	$json_object_str .= '",';
-	$json_object_str .= '"message":"';
-	$json_object_str .= $message_es;
-	$json_object_str .= '"}}';
+	//different languages will be sent as separate elements within the URL
+	$title_EN = '';
+	$title_EN .= $title_en;
+	$message_EN = '';
+	$message_EN .= $message_en;
+	$title_DE = '';
+	$title_DE .= $title_de;
+	$message_DE = '';
+	$message_DE .= $message_de;
+	$title_ES = '';
+	$title_ES .= $title_es;
+	$message_ES = '';
+	$message_ES .= $message_es;
 
 
-	$url = $endpoint.$operation.'?service='.$service.'&message='.urlencode($json_object_str).'&subscriber=*';
+	//$url = $endpoint.$operation.'?service='.$service.'&message='.urlencode($json_object_str).'&subscriber=*';
+	$short_title= 'ReflectUP';
 	$short_message= $course->fullname;
 
-	$url = $endpoint.$operation.'?service='.$service.'&message='.urlencode($json_object_str).'&msg='.urlencode($short_message).'&subscriber=*';
+	$url = $endpoint.$operation.'?service='.$service.'&title='.urlencode($short_title).'&message='.urlencode($short_message).'&title_EN='.urlencode($title_EN).'&message_EN='.urlencode($message_EN).'&title_DE='.urlencode($title_DE).'&message_DE='.urlencode($message_DE).'&title_ES='.urlencode($title_ES).'&message_ES='.urlencode($message_ES).'&subscriber=*';
 
 	$headers = explode("\n", str_replace("\r", "",get_config('block_pushnotification', 'headers')));
 
