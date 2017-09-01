@@ -71,7 +71,7 @@ if (has_capability('block/pushnotification:sendnotification', $context)){
 	$short_title= 'ReflectUP';
 	$short_message= $course->fullname;
 
-	$url = $endpoint.$operation.'?service='.$service.'&title='.urlencode($short_title).'&message='.urlencode($short_message).'&title_EN='.urlencode($title_EN).'&message_EN='.urlencode($message_EN).'&title_DE='.urlencode($title_DE).'&message_DE='.urlencode($message_DE).'&title_ES='.urlencode($title_ES).'&message_ES='.urlencode($message_ES).'&subscriber=*';
+	$url = $endpoint.$operation.'?service='.$service.'&title='.urlencode($short_title).'&msg='.urlencode($short_message).'&message='.urlencode($short_message).'&title_EN='.urlencode($title_EN).'&message_EN='.urlencode($message_EN).'&title_DE='.urlencode($title_DE).'&message_DE='.urlencode($message_DE).'&title_ES='.urlencode($title_ES).'&message_ES='.urlencode($message_ES).'&subscriber=*';
 
 	$headers = explode("\n", str_replace("\r", "",get_config('block_pushnotification', 'headers')));
 
