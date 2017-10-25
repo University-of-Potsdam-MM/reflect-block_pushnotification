@@ -40,7 +40,7 @@ if (isguestuser()) {
 
 global $COURSE, $PAGE;
 
-$context = context_course::instance($COURSE->id);
+$context = context_course::instance($courseid);
 
 if (has_capability('block/pushnotification:sendnotification', $context)){
 
