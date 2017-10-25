@@ -48,7 +48,7 @@ if (has_capability('block/pushnotification:sendnotification', $context)){
 
 	$operation = 'push';
 	$service = 'reflectup-';
-  $course = $DB->get_record('course', array('id' => $courseid));
+	$course = $DB->get_record('course', array('id' => $courseid));
 
 	$service .= $course->idnumber;
 
@@ -89,4 +89,6 @@ if (has_capability('block/pushnotification:sendnotification', $context)){
 	$courseurl = new moodle_url('/course/view.php', array('id' => $courseid));
 	redirect($courseurl);
 
+}else{
+	throw new moodle_exception('missingrequiredcapability', 'block/pushnotification:sendnotification');
 }
