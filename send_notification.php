@@ -26,12 +26,12 @@
 require('../../config.php');
 
 $courseid = required_param('id', PARAM_INT);
-$title_en = required_param('title_en', PARAM_TEXT);
+$title_en = optional_param('title_en', '', PARAM_TEXT);
 $title_de = required_param('title_de', PARAM_TEXT);
-$title_es = required_param('title_es', PARAM_TEXT);
-$message_en = required_param('msg_en', PARAM_TEXT);
+$title_es = optional_param('title_es', '', PARAM_TEXT);
+$message_en = optional_param('msg_en', '', PARAM_TEXT);
 $message_de = required_param('msg_de', PARAM_TEXT);
-$message_es = required_param('msg_es', PARAM_TEXT);
+$message_es = optional_param('msg_es', '', PARAM_TEXT);
 
 require_login();
 if (isguestuser()) {
@@ -66,10 +66,11 @@ if (has_capability('block/pushnotification:sendnotification', $context)){
 	$message_ES = '';
 	$message_ES .= $message_es;
 
-
 	//$url = $endpoint.$operation.'?service='.$service.'&message='.urlencode($json_object_str).'&subscriber=*';
-	$short_title= 'ReflectUP';
-	$short_message= $course->fullname;
+	//$short_title= 'ReflectUP';
+	//$short_message= $course->fullname;
+	$short_title= $title_de;
+	$short_message= $message_de;
 
 	$url = $endpoint.$operation.'?service='.$service.'&title='.urlencode($short_title).'&msg='.urlencode($short_message).'&message='.urlencode($short_message).'&title_EN='.urlencode($title_EN).'&message_EN='.urlencode($message_EN).'&title_DE='.urlencode($title_DE).'&message_DE='.urlencode($message_DE).'&title_ES='.urlencode($title_ES).'&message_ES='.urlencode($message_ES).'&subscriber=*';
 
