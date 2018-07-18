@@ -33,13 +33,10 @@ $string['block_pushnotification_headers'] = 'Request Headers for Push-Service';
 
 $string['pushnotification:sendnotification'] = 'Send a notification to all registered mobile devices';
 $string['pushnotification:addinstance'] = 'Add a new Pushnotification block';
+$string['headers_app_key'] = 'Request Headers App-Key';
 
 $string['newblock:addinstance'] = 'Add a Pushnotification block';
 $string['newblock:myaddinstance'] = 'Add a Pushnotification block to my moodle';
 $string['pluginname'] = 'Reflect Pushnotification';
-$string['title_en'] = 'Title';
-$string['text_en'] = 'Contents';
-$string['title_de'] = 'Titel';
-$string['text_de'] = 'Inhalt';
-$string['title_es'] = 'Título';
-$string['text_es'] = 'Contenidos';
+$string['content'] = 'Contents';
+$string['notification'] = 'Notification';

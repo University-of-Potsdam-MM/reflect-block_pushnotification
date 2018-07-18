@@ -26,12 +26,8 @@
 require('../../config.php');
 
 $courseid = required_param('id', PARAM_INT);
-$title_en = optional_param('title_en', '', PARAM_TEXT);
-$title_de = required_param('title_de', PARAM_TEXT);
-$title_es = optional_param('title_es', '', PARAM_TEXT);
-$message_en = optional_param('msg_en', '', PARAM_TEXT);
-$message_de = required_param('msg_de', PARAM_TEXT);
-$message_es = optional_param('msg_es', '', PARAM_TEXT);
+$appkey = required_param('appkey', PARAM_TEXT);
+$content = required_param('content', PARAM_TEXT);
 
 require_login();
 if (isguestuser()) {
@@ -46,46 +42,49 @@ if (has_capability('block/pushnotification:sendnotification', $context)){
 
 	$endpoint = get_config('block_pushnotification', 'URL');
 
-	$operation = 'push';
 	$service = 'reflectup-';
 	$course = $DB->get_record('course', array('id' => $courseid));
 
 	$service .= $course->idnumber;
-
-	//different languages will be sent as separate elements within the URL
-	$title_EN = '';
-	$title_EN .= $title_en;
-	$message_EN = '';
-	$message_EN .= $message_en;
-	$title_DE = '';
-	$title_DE .= $title_de;
-	$message_DE = '';
-	$message_DE .= $message_de;
-	$title_ES = '';
-	$title_ES .= $title_es;
-	$message_ES = '';
-	$message_ES .= $message_es;
-
-	//$url = $endpoint.$operation.'?service='.$service.'&message='.urlencode($json_object_str).'&subscriber=*';
-	//$short_title= 'ReflectUP';
-	//$short_message= $course->fullname;
-	$short_title= $title_de;
-	$short_message= $message_de;
-
-	$url = $endpoint.$operation.'?service='.$service.'&title='.urlencode($short_title).'&msg='.urlencode($short_message).'&message='.urlencode($short_message).'&title_EN='.urlencode($title_EN).'&message_EN='.urlencode($message_EN).'&title_DE='.urlencode($title_DE).'&message_DE='.urlencode($message_DE).'&title_ES='.urlencode($title_ES).'&message_ES='.urlencode($message_ES).'&subscriber=*';
+	$service = str_replace("-", "", $service);
+	$service = strtolower($service);
 
 	$headers = explode("\n", str_replace("\r", "",get_config('block_pushnotification', 'headers')));
+	//print_r($headers);
 
-	// new HTTP-Request
+	// append X-AN-APP-NAME to headers
+	array_push($headers, "X-AN-APP-NAME: ".$service);
+
+	// append X-AN-APP-KEY from configuration to headers
+	array_push($headers, "X-AN-APP-KEY: ".$appkey);
+
+	// new HTTP-POST-Request
+	$body = array(
+				"alert" => $content,
+				"sound" => "Submarine.aiff",
+				"badge" => 1,
+				"apns" => array(
+						"content" => 1,
+						"sound" => "Submarine.aiff",
+						"badge" => 1
+				));
+	$data_string = json_encode($body);
 
 	$curl = curl_init();
+	curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
 	curl_setopt_array($curl, array(
+									CURLOPT_CUSTOMREQUEST => "POST",
+									CURLOPT_POSTFIELDS => $data_string,
 									CURLOPT_RETURNTRANSFER => 1,
 									CURLOPT_HTTPHEADER => $headers,
-									CURLOPT_URL => $url
+									CURLOPT_URL => $endpoint
 									));
+
 	$result = curl_exec($curl);
+
 	curl_close($curl);
+
 
 	$courseurl = new moodle_url('/course/view.php', array('id' => $courseid));
 	redirect($courseurl);

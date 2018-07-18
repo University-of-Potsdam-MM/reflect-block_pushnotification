@@ -56,33 +56,15 @@ class block_pushnotification extends block_base {
         $this->content->text .= '<form action="'.$CFG->wwwroot.'/blocks/pushnotification/send_notification.php" style="display:inline"><fieldset class="invisiblefieldset">';
 
         $this->content->text .= '<input name="id" type="hidden" value="'.$this->page->course->id.'" />';  // course
+        $this->content->text .= '<input name="appkey" type="hidden" value="'.$this->config->text.'" />';
         //form body
-            //german	   
-        $this->content->text .= '<h5>Deutsch (Standard)</h5>';
-        $this->content->text .= '<label class="accesshide" for="pushform_title">'.get_string('title_de', 'block_pushnotification').'</label>'.
-                                '<input id="pushform_title" name="title_de" type="text" size="20" placeholder="'.get_string('title_de', 'block_pushnotification').'" />';
-        $this->content->text .= '<textarea id="pushform_msg_de" name="msg_de" rows="4" cols="22" placeholder="'.get_string('text_de', 'block_pushnotification').
-                                '"></textarea>';
-        $this->content->text .= '<br />';	 
-            //english
-        /*
-        $this->content->text .= '<h5>English</h5>';
-		$this->content->text .= '<label class="accesshide" for="pushform_title">'.get_string('title_en', 'block_pushnotification').'</label>'.
-                                '<input id="pushform_title" name="title_en" type="text" size="20" placeholder="'.get_string('title_en', 'block_pushnotification').'" />';
-        $this->content->text .= '<textarea id="pushform_msg_en" name="msg_en" rows="4" cols="22" placeholder="'.get_string('text_en', 'block_pushnotification').
+        //german
+        $this->content->text .= '<h5>'.get_string('notification', 'block_pushnotification').'</h5>';
+        $this->content->text .= '<textarea id="pushform_msg_de" name="content" rows="4" cols="22" placeholder="'.get_string('content', 'block_pushnotification').
                                 '"></textarea>';
         $this->content->text .= '<br />';
-        */
-            //spanish
-            /*
-        $this->content->text .= '<h5>Español</h5>';
-        $this->content->text .= '<label class="accesshide" for="pushform_title">'.get_string('title_es', 'block_pushnotification').'</label>'.
-                                '<input id="pushform_title" name="title_es" type="text" size="20" placeholder="'.get_string('title_es', 'block_pushnotification').'" />';
-        $this->content->text .= '<textarea id="pushform_msg_es" name="msg_es" rows="4" cols="22" placeholder="'.get_string('text_es', 'block_pushnotification').
-                                '"></textarea>';
-        $this->content->text .= '<br />';
-        */
-            //submit button
+
+        //submit button
         $this->content->text .= '<br />';
         $this->content->text .= '<button id="searchform_button" type="submit">'.get_string('submit').'</button><br />';
         $this->content->text .= '</fieldset></form></div>';
