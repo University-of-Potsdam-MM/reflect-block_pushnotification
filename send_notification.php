@@ -34,11 +34,11 @@ if (isguestuser()) {
     die();
 }
 
-global $COURSE, $PAGE;
+global $COURSE, $PAGE, $USER;
 
 $context = context_course::instance($courseid);
 
-if (has_capability('block/pushnotification:sendnotification', $context)){
+if (has_capability('block/pushnotification:sendnotification', $context)) {
 
 	$endpoint = get_config('block_pushnotification', 'URL');
 
@@ -85,10 +85,18 @@ if (has_capability('block/pushnotification:sendnotification', $context)){
 
 	curl_close($curl);
 
+	$new_message = new stdClass();
+	$new_message->idnumber = $course->idnumber;
+	$new_message->userid = $USER->id;
+	$new_message->timestamp = time();
+	// $new_message->title
+	$new_message->message = $content;
+
+	$DB->insert_record('block_pushnotification', $new_message);
 
 	$courseurl = new moodle_url('/course/view.php', array('id' => $courseid));
 	redirect($courseurl);
 
-}else{
+} else {
 	throw new moodle_exception('missingrequiredcapability', 'block/pushnotification:sendnotification');
 }
