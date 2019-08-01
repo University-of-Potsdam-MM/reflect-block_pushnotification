@@ -94,14 +94,16 @@ if (has_capability('block/pushnotification:sendnotification', $context)) {
 
 	curl_close($curl);
 
-	$new_message = new stdClass();
-	$new_message->idnumber = $course->idnumber;
-	$new_message->userid = $USER->id;
-	$new_message->timestamp = time();
-	$new_message->title = $title_str;
-	$new_message->message = $content;
+	if ($content !== '') {
+		$new_message = new stdClass();
+		$new_message->idnumber = $course->idnumber;
+		$new_message->userid = $USER->id;
+		$new_message->timestamp = time();
+		$new_message->title = $title_str;
+		$new_message->message = $content;
 
-	$DB->insert_record('block_pushnotification', $new_message);
+		$DB->insert_record('block_pushnotification', $new_message);
+	}
 
 	$courseurl = new moodle_url('/course/view.php', array('id' => $courseid));
 	redirect($courseurl);
