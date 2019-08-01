@@ -27,6 +27,7 @@ require('../../config.php');
 
 $courseid = required_param('id', PARAM_INT);
 $appkey = required_param('appkey', PARAM_TEXT);
+$title = optional_param('title', '', PARAM_TEXT);
 $content = required_param('content', PARAM_TEXT);
 
 require_login();
@@ -49,6 +50,9 @@ if (has_capability('block/pushnotification:sendnotification', $context)) {
 	$service = str_replace("-", "", $service);
 	$service = strtolower($service);
 
+	$title_str = '';
+	$title_str .= $title;
+
 	$headers = explode("\n", str_replace("\r", "",get_config('block_pushnotification', 'headers')));
 	//print_r($headers);
 
@@ -60,14 +64,19 @@ if (has_capability('block/pushnotification:sendnotification', $context)) {
 
 	// new HTTP-POST-Request
 	$body = array(
-				"alert" => $content,
-				"sound" => "Submarine.aiff",
-				"badge" => 1,
-				"apns" => array(
-						"content" => 1,
-						"sound" => "Submarine.aiff",
-						"badge" => 1
-				));
+		"alert" => array(
+			"title" => $title_str,
+			"body" => $content
+		),
+		"sound" => "Submarine.aiff",
+		"badge" => 1,
+		"apns" => array(
+			"content" => 1,
+			"sound" => "Submarine.aiff",
+			"badge" => 1
+		)
+	);
+
 	$data_string = json_encode($body);
 
 	$curl = curl_init();
@@ -89,7 +98,7 @@ if (has_capability('block/pushnotification:sendnotification', $context)) {
 	$new_message->idnumber = $course->idnumber;
 	$new_message->userid = $USER->id;
 	$new_message->timestamp = time();
-	// $new_message->title
+	$new_message->title = $title_str;
 	$new_message->message = $content;
 
 	$DB->insert_record('block_pushnotification', $new_message);

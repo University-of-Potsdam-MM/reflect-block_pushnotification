@@ -57,11 +57,12 @@ class block_pushnotification extends block_base {
 
         $this->content->text .= '<input name="id" type="hidden" value="'.$this->page->course->id.'" />';  // course
         $this->content->text .= '<input name="appkey" type="hidden" value="'.$this->config->text.'" />';
+
         //form body
         //german
         $this->content->text .= '<h5>'.get_string('notification', 'block_pushnotification').'</h5>';
-        $this->content->text .= '<textarea id="pushform_msg_de" name="content" rows="4" cols="22" placeholder="'.get_string('content', 'block_pushnotification').
-                                '"></textarea>';
+        $this->content->text .= '<textarea id="pushform_title_de" name="title" rows="1" cols="22" placeholder="'.get_string('title', 'block_pushnotification').'"></textarea>';
+        $this->content->text .= '<textarea id="pushform_msg_de" name="content" rows="4" cols="22" placeholder="'.get_string('content', 'block_pushnotification').'"></textarea>';
         $this->content->text .= '<br />';
 
         //submit button
