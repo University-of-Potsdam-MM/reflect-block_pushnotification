@@ -62,12 +62,17 @@ if (has_capability('block/pushnotification:sendnotification', $context)) {
 		// append X-AN-APP-KEY from configuration to headers
 		array_push($headers, "X-AN-APP-KEY: ".$appkey);
 
-		// new HTTP-POST-Request
-		$body = array(
-			"alert" => array(
+		$alert_obj = $content;
+		if ($title_str !== '') {
+			$alert_obj = array(
 				"title" => $title_str,
 				"body" => $content
-			),
+			);
+		}
+
+		// new HTTP-POST-Request
+		$body = array(
+			"alert" => $alert_obj,
 			"sound" => "Submarine.aiff",
 			"badge" => 1,
 			"apns" => array(
