@@ -40,61 +40,60 @@ global $COURSE, $PAGE, $USER;
 $context = context_course::instance($courseid);
 
 if (has_capability('block/pushnotification:sendnotification', $context)) {
-
-	$endpoint = get_config('block_pushnotification', 'URL');
-
-	$service = 'reflectup-';
-	$course = $DB->get_record('course', array('id' => $courseid));
-
-	$service .= $course->idnumber;
-	$service = str_replace("-", "", $service);
-	$service = strtolower($service);
-
-	$title_str = '';
-	$title_str .= $title;
-
-	$headers = explode("\n", str_replace("\r", "",get_config('block_pushnotification', 'headers')));
-	//print_r($headers);
-
-	// append X-AN-APP-NAME to headers
-	array_push($headers, "X-AN-APP-NAME: ".$service);
-
-	// append X-AN-APP-KEY from configuration to headers
-	array_push($headers, "X-AN-APP-KEY: ".$appkey);
-
-	// new HTTP-POST-Request
-	$body = array(
-		"alert" => array(
-			"title" => $title_str,
-			"body" => $content
-		),
-		"sound" => "Submarine.aiff",
-		"badge" => 1,
-		"apns" => array(
-			"content" => 1,
-			"sound" => "Submarine.aiff",
-			"badge" => 1
-		)
-	);
-
-	$data_string = json_encode($body);
-
-	$curl = curl_init();
-	curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
-	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
-	curl_setopt_array($curl, array(
-									CURLOPT_CUSTOMREQUEST => "POST",
-									CURLOPT_POSTFIELDS => $data_string,
-									CURLOPT_RETURNTRANSFER => 1,
-									CURLOPT_HTTPHEADER => $headers,
-									CURLOPT_URL => $endpoint
-									));
-
-	$result = curl_exec($curl);
-
-	curl_close($curl);
-
 	if ($content !== '') {
+		$endpoint = get_config('block_pushnotification', 'URL');
+
+		$service = 'reflectup-';
+		$course = $DB->get_record('course', array('id' => $courseid));
+
+		$service .= $course->idnumber;
+		$service = str_replace("-", "", $service);
+		$service = strtolower($service);
+
+		$title_str = '';
+		$title_str .= $title;
+
+		$headers = explode("\n", str_replace("\r", "",get_config('block_pushnotification', 'headers')));
+		//print_r($headers);
+
+		// append X-AN-APP-NAME to headers
+		array_push($headers, "X-AN-APP-NAME: ".$service);
+
+		// append X-AN-APP-KEY from configuration to headers
+		array_push($headers, "X-AN-APP-KEY: ".$appkey);
+
+		// new HTTP-POST-Request
+		$body = array(
+			"alert" => array(
+				"title" => $title_str,
+				"body" => $content
+			),
+			"sound" => "Submarine.aiff",
+			"badge" => 1,
+			"apns" => array(
+				"content" => 1,
+				"sound" => "Submarine.aiff",
+				"badge" => 1
+			)
+		);
+
+		$data_string = json_encode($body);
+
+		$curl = curl_init();
+		curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+		curl_setopt_array($curl, array(
+										CURLOPT_CUSTOMREQUEST => "POST",
+										CURLOPT_POSTFIELDS => $data_string,
+										CURLOPT_RETURNTRANSFER => 1,
+										CURLOPT_HTTPHEADER => $headers,
+										CURLOPT_URL => $endpoint
+										));
+
+		$result = curl_exec($curl);
+
+		curl_close($curl);
+
 		$new_message = new stdClass();
 		$new_message->idnumber = $course->idnumber;
 		$new_message->userid = $USER->id;
@@ -107,7 +106,6 @@ if (has_capability('block/pushnotification:sendnotification', $context)) {
 
 	$courseurl = new moodle_url('/course/view.php', array('id' => $courseid));
 	redirect($courseurl);
-
 } else {
 	throw new moodle_exception('missingrequiredcapability', 'block/pushnotification:sendnotification');
 }
