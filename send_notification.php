@@ -88,12 +88,12 @@ if (has_capability('block/pushnotification:sendnotification', $context)) {
 		curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
 		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
 		curl_setopt_array($curl, array(
-										CURLOPT_CUSTOMREQUEST => "POST",
-										CURLOPT_POSTFIELDS => $data_string,
-										CURLOPT_RETURNTRANSFER => 1,
-										CURLOPT_HTTPHEADER => $headers,
-										CURLOPT_URL => $endpoint
-										));
+			CURLOPT_CUSTOMREQUEST => "POST",
+			CURLOPT_POSTFIELDS => $data_string,
+			CURLOPT_RETURNTRANSFER => 1,
+			CURLOPT_HTTPHEADER => $headers,
+			CURLOPT_URL => $endpoint
+		));
 
 		$result = curl_exec($curl);
 
@@ -112,5 +112,11 @@ if (has_capability('block/pushnotification:sendnotification', $context)) {
 	$courseurl = new moodle_url('/course/view.php', array('id' => $courseid));
 	redirect($courseurl);
 } else {
-	throw new moodle_exception('missingrequiredcapability', 'block/pushnotification:sendnotification');
+	throw new moodle_exception(
+		'missing_required_capability',
+		'error',
+		'',
+		null,
+		'block/pushnotification:sendnotification'
+	);
 }
