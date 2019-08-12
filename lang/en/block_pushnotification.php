@@ -38,5 +38,6 @@ $string['headers_app_key'] = 'Request Headers App-Key';
 $string['newblock:addinstance'] = 'Add a Pushnotification block';
 $string['newblock:myaddinstance'] = 'Add a Pushnotification block to my moodle';
 $string['pluginname'] = 'Reflect Pushnotification';
+$string['title'] = 'Title (optional)';
 $string['content'] = 'Contents';
 $string['notification'] = 'Notification';
