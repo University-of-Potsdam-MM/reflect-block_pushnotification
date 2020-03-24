@@ -27,9 +27,9 @@ $string['descconfig'] = 'Please fill in your endpoint to the Pushnotification Se
 $string['headerconfig'] = 'Settings for Pushnotification Service';
 
 $string['block_pushnotification_url_key'] = 'URL Endpoint';
-$string['block_pushnotification_url'] = 'URL Endpoint of the Uniqush Push-Service. Has to end with an /';
+$string['block_pushnotification_url'] = 'URL Endpoint of the Uniqush Push-Service.';
 $string['block_pushnotification_headers_key'] = 'Request Headers';
-$string['block_pushnotification_headers'] = 'Request Headers for Push-Service';
+$string['block_pushnotification_headers'] = 'Request Headers for Push-Service. Example: Authorization: Bearer xxxx-xxxx-xxxx-xxxx-xxxx';
 
 $string['pushnotification:sendnotification'] = 'Send a notification to all registered mobile devices';
 $string['pushnotification:addinstance'] = 'Add a new Pushnotification block';
