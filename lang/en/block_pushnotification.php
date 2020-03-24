@@ -40,4 +40,5 @@ $string['newblock:myaddinstance'] = 'Add a Pushnotification block to my moodle';
 $string['pluginname'] = 'Reflect Pushnotification';
 $string['title'] = 'Title (optional)';
 $string['content'] = 'Contents';
+$string['sendbutton'] = 'Send';
 $string['notification'] = 'Notification';

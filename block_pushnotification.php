@@ -67,7 +67,7 @@ class block_pushnotification extends block_base {
 
         //submit button
         $this->content->text .= '<br />';
-        $this->content->text .= '<button id="searchform_button" type="submit">'.get_string('submit').'</button><br />';
+        $this->content->text .= '<button id="searchform_button" type="submit">'.get_string('sendbutton', 'block_pushnotification').'</button><br />';
         $this->content->text .= '</fieldset></form></div>';
 
 
