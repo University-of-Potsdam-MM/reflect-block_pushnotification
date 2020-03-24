@@ -73,12 +73,19 @@ if (has_capability('block/pushnotification:sendnotification', $context)) {
 		// new HTTP-POST-Request
 		$body = array(
 			"alert" => $alert_obj,
-			"sound" => "Submarine.aiff",
-			"badge" => 1,
 			"apns" => array(
-				"content" => 1,
-				"sound" => "Submarine.aiff",
-				"badge" => 1
+				"badge" => 1,
+				"content-available" => 1,
+				"sound" => "default"
+			),
+			"fcm" => array(
+				"android" => array(
+					"priority" => "HIGH",
+					"notification" => array(
+						"notification_count" => 1,
+						"sound" => "default"
+					)
+				)
 			)
 		);
 
